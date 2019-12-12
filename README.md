@@ -119,9 +119,21 @@ and make sure it is running.  This brings up the idea of a [Kuberentes] engine, 
 ![dsm](/images/DesiredStateManagement.png)
 
 ## Kubernetes Engines
+[Kuberentes] does not know how to create any of the hardware components that it uses to satisfy the needs 
+of the developer.  This is what makes it so powerful.  Just like Microsoft put a hardware abstraction layer
+inbetween the developer and the hardware manufacture, [Kubernetes] but a hardware abstraction layer inbetween
+the developer and the cluster provider.  All [Kubernetes] does is definet he contract of how to **describe** 
+what you want it to do, so it can relay that to the [Kubernetes] engine.  All major cloud vendors have fully
+supported Kubernetes engines.  Here is a list of some of them:
 
+  - [Amazon EKS](https://aws.amazon.com/eks/)
+  - [Azure AKS](https://azure.microsoft.com/en-us/services/kubernetes-service/)
+  - [Google Cloud GKE](https://cloud.google.com/kubernetes-engine/)
+  - [Oracle OKE](https://docs.cloud.oracle.com/iaas/Content/ContEng/Concepts/contengoverview.htm)
 
-
+When [Kubernetes] needs to create a load balancer, it will delegate that to the engine.  In AWS you will get an 
+**Elastic Load Balance**, in Azure you will get an **Azure Load Balancer** etc...  This is true for all hardware
+items, such as persistent disks, CPU's, Memory, and networking.  
 
 
 
