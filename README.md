@@ -1,10 +1,21 @@
-# Intro to Kubernetes
+# Intro to Kubernetes <!-- omit in toc -->
 
+- [Some Helpful Links](#some-helpful-links)
+- [Verifying Your AWS Workspace Setup](#verifying-your-aws-workspace-setup)
+  - [Open VS Code](#open-vs-code)
+  - [Install VS Code Kubernetes Extension](#install-vs-code-kubernetes-extension)
+  - [Setup AWS Credentials](#setup-aws-credentials)
+  - [Verify Kubernetes Connectivity](#verify-kubernetes-connectivity)
+- [What is Kubernetes?](#what-is-kubernetes)
+  - [An Operating System for the Cloud](#an-operating-system-for-the-cloud)
+  - [Kubernetes is winning the race](#kubernetes-is-winning-the-race)
+  - [Desired State Management](#desired-state-management)
+  - [Kubernetes Engines](#kubernetes-engines)
+
+# Some Helpful Links
 [This might be the most important thing of all!](https://www.youtube.com/watch?v=uMA7qqXIXBk)
 
-
 Please read through this article prior to the workshop: https://www.weave.works/technologies/the-journey-to-kubernetes/
-
 
 # Verifying Your AWS Workspace Setup
 Please perform the following steps to ensure your AWS workspace is ready
@@ -46,3 +57,75 @@ cluster in the list.
 
 ![kube](images/k8s_vscode_success.png)
 
+
+# What is Kubernetes?
+
+## An Operating System for the Cloud
+Why do we need an operating system for the cloud?  And what does that mean? 
+Condsider the old days of computers, when Microsoft was putting out an operating
+system and hardware manufacturers were building CPUs, Memory, and Hard Drives so 
+make the things work.  In order to allow developers to write software that worked
+with any of the vendors hardware, they used a [Hardware Abstraction Layer (HAL)](https://en.wikipedia.org/wiki/HAL_(software))
+which was part of the Operating System.  The operating system was taking on the 
+responsibility of figuring out how to talk to the hardware for the developer.  
+
+Fast forward a few years and you can see this same technique used by virtualization
+systems such as Hyper-V and VMWare.  All they had to do was build a virtual layer that
+spoke to the operating system the same way the hardware did, and then swap it out. Once
+you did that, the operating system had no idea it was running in a virtual environment,
+and it really didn't care.
+
+Pre-dating the rise of virtualization was the need for high-availaiblity.  Applications were
+becoming more critical to businesses, and they needed a way to ensure the continual 
+delivery of the application without inturuption.  This head to clustering techniques and 
+technologies.  Simply put, one server was not enough, because it was a single point of 
+failure, so the answer was to have multiple servers fulfilling the same role.  This
+was often in the form of replication.  These topics are beyond the scope of this course, 
+but just remember it took multiple redundant servers to fulfill this need.
+
+Managing clusters of servers was very difficult.  There were many problems that needed to be
+solved.  For example, if I have three web servers running, how do I make sure users are always
+hitting one that is healthy (i.e. load balancing).  Another problem is service discovery,
+if SQL is running on multiple servers, how do I know what one to talk to?
+
+With the rise of [DevOps], the lines between developers and IT were blurred, and the need 
+for a new type of operating system arose, a **cloud operating system**.  Looking back to 
+the Microsoft example,  the role of the operating system was to allow the developer to work
+with things like CPU, Memory, and Disk without having to know the low level details of how
+to manage them.  A **cloud operating system** does this, but also adds in abstractions around
+networking, service discovery, and load balancing.  This is precesiely why Mesos created [DCOS]
+which is an alternative to Kubernetes.
+
+## Kubernetes is winning the race
+For the past few years their have been a few technologies trying to solve this problem, such as [DCOS], [Kubernetes],
+and [docker-swarm].  The diagram below is from the Weave article I linked at the top of this page. 
+It leads us to believe Kubernetes is winning this race by a long shot.
+
+![kube_chart](https://images.contentstack.io/v3/assets/blt300387d93dabf50e/bltc90ec62b675e594e/5bd0b07f5607f44e72b5b111/download)
+
+## Desired State Management
+In order to understand how [Kubernetes] works you have to understand **Desired State Management** (DSM). DSM
+is the process where we describe how we want our system to look, then a system (like Kubernetes) is responsible
+for making sure the system actually looks like that.  We are separate the **What** we want from the **How** it 
+is going to be fulfilled.  Our responsibility is to define the **What** and [Kubernetes] responsibiilty is to 
+provide the **How** and to always make sure our **actual state** matches our **desired state**.
+
+The diagram below shows how this works.  The **Developer** defines the **desired state** using [Kubernetes] language,
+and [Kubernetes] is responsible for making sure the **actual state** matches it.  Initially the **actual state** won't
+have anything in it, so [Kubernetes] will start creating the resources to satisify it.  For example, we need a load balancer,
+so [Kubernetes] will make sure we have one and that it is running.  Notice I didn't say [Kubernetes] would **create** one
+and make sure it is running.  This brings up the idea of a [Kuberentes] engine, which I discuss below.
+
+![dsm](/images/DesiredStateManagement.png)
+
+## Kubernetes Engines
+
+
+
+
+
+
+[DevOps]: https://en.wikipedia.org/wiki/DevOps
+[DCOS]: https://dcos.io/
+[docker-swarm]: https://github.com/docker/swarm
+[Kubernetes]: https://kubernetes.io/
