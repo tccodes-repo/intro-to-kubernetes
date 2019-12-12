@@ -105,7 +105,9 @@ For the past few years their have been a few technologies trying to solve this p
 and [docker-swarm].  The diagram below is from the Weave article I linked at the top of this page. 
 It leads us to believe Kubernetes is winning this race by a long shot.
 
-![kube_chart](https://images.contentstack.io/v3/assets/blt300387d93dabf50e/bltc90ec62b675e594e/5bd0b07f5607f44e72b5b111/download)
+<p align="center">
+<img src="https://images.contentstack.io/v3/assets/blt300387d93dabf50e/bltc90ec62b675e594e/5bd0b07f5607f44e72b5b111/download" />
+</p>
 
 ## Desired State Management
 In order to understand how [Kubernetes] works you have to understand **Desired State Management** (DSM). DSM
@@ -121,8 +123,9 @@ so [Kubernetes] will make sure we have one and that it is running.  Notice I did
 and make sure it is running.  This brings up the idea of a [Kuberentes] engine, which I discuss below.
 
 <p align="center">
-![dsm](/images/DesiredStateManagement.png)
+  <img src="images/DesiredStateManagement.png" />
 </p>
+
 
 ## Kubernetes Engines
 [Kuberentes] does not know how to create any of the hardware components that it uses to satisfy the needs 
@@ -171,7 +174,7 @@ a container of resources that belong together.  It can also be used to provided 
 cluster.
 
 <p align="center">
-    ![namespaces](/images/Namespaces.png)
+    <img src="images/Namespaces.png" />
 </p>
 
 ## Speaking Kuberentes Language
