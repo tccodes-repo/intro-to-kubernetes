@@ -14,6 +14,7 @@
 - [Working with Kubernetes (kubectl)](#working-with-kubernetes-kubectl)
   - [Common kubectl commands](#common-kubectl-commands)
   - [Namespaces](#namespaces)
+  - [Speaking Kuberentes Language](#speaking-kuberentes-language)
 
 # Some Helpful Links
 [This might be the most important thing of all!](https://www.youtube.com/watch?v=uMA7qqXIXBk)
@@ -119,7 +120,9 @@ have anything in it, so [Kubernetes] will start creating the resources to satisi
 so [Kubernetes] will make sure we have one and that it is running.  Notice I didn't say [Kubernetes] would **create** one
 and make sure it is running.  This brings up the idea of a [Kuberentes] engine, which I discuss below.
 
+<p align="center">
 ![dsm](/images/DesiredStateManagement.png)
+</p>
 
 ## Kubernetes Engines
 [Kuberentes] does not know how to create any of the hardware components that it uses to satisfy the needs 
@@ -167,12 +170,67 @@ $ kubectl get pods
 a container of resources that belong together.  It can also be used to provided isolated development areas on the same 
 cluster.
 
+<p align="center">
+    ![namespaces](/images/Namespaces.png)
+</p>
 
-![namespaces](/images/Namespaces.png)
+## Speaking Kuberentes Language
+[Kubernetes] is based on API's works with **Resource Defitions** which are stored internally as JSON objects. However,
+the main format of working with **Resource Definition** files is **yaml**.
 
+demo-web-pod.yaml
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-web
+  labels:
+    app: demo-service
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+      nane: TCP
+    volumeMounts:
+    - name: workdir
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: workdir
+    emptyDir: {}
+```
 
+Here is an example of a simple service (which will default as a load balancer)
 
+demo-service.yaml
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+spec:
+  selector:
+    app: demo-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+```
 
+Configuration is also stored as a resource definition.  Here is an example logging
+config.
+
+```
+apiVersion: v1
+data:
+  config.yml: |
+    logging:
+      level: INFO
+kind: ConfigMap
+metadata:
+  name: logging-config
+```
 
 [DevOps]: https://en.wikipedia.org/wiki/DevOps
 [DCOS]: https://dcos.io/
