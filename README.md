@@ -11,6 +11,9 @@
   - [Kubernetes is winning the race](#kubernetes-is-winning-the-race)
   - [Desired State Management](#desired-state-management)
   - [Kubernetes Engines](#kubernetes-engines)
+- [Working with Kubernetes (kubectl)](#working-with-kubernetes-kubectl)
+  - [Common kubectl commands](#common-kubectl-commands)
+  - [Namespaces](#namespaces)
 
 # Some Helpful Links
 [This might be the most important thing of all!](https://www.youtube.com/watch?v=uMA7qqXIXBk)
@@ -134,6 +137,40 @@ supported Kubernetes engines.  Here is a list of some of them:
 When [Kubernetes] needs to create a load balancer, it will delegate that to the engine.  In AWS you will get an 
 **Elastic Load Balance**, in Azure you will get an **Azure Load Balancer** etc...  This is true for all hardware
 items, such as persistent disks, CPU's, Memory, and networking.  
+
+
+# Working with Kubernetes (kubectl)
+[Kubernetes] is 100% RESTful API-based, however they provide a command line tool called [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
+which is used for all management tasks.  The [Kubernetes] extension that is loaded in **VS Code** uses 
+this command line tool under the hood.
+
+**kubectl** is configured using a local file you will find on your workspace. Let's open the file and take a look at 
+how it works.  The file is located at `~/.kube/config`.
+
+## Common kubectl commands
+For most of the session we will use the VS Code extension for interacting with [Kubernetes] but I wanted to show a couple
+of common `kubectl` commands.
+
+Gets a list of nodes in the cluster
+```
+$ kubectl get nodes
+```
+
+Gets a list of pods
+```
+$ kubectl get pods
+```
+
+
+## Namespaces
+[Kubernetes] provides a concept of namespaces, which allows users to isolate resources from each other.  A namespace is 
+a container of resources that belong together.  It can also be used to provided isolated development areas on the same 
+cluster.
+
+
+![namespaces](/images/Namespaces.png)
+
+
 
 
 
